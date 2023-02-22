@@ -8,4 +8,10 @@ export interface UserData {
     verified: boolean,
     wallet: {}[],
     history: {}[]
+};
+
+export interface WalletData {
+    Balance: number;
+    credit: number,
+    debit: number
 }
