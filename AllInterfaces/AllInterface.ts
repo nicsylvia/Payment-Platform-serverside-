@@ -18,6 +18,6 @@ export interface WalletData {
 
 export interface HistoryData {
     message: string;
-    transactionReference: string;
+    transactionReference: number;
     transactionType: boolean
 }

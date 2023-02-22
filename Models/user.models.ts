@@ -1,4 +1,4 @@
-import mongoose, { modelNames, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 import { UserData } from "../AllInterfaces/AllInterface";
 
@@ -42,10 +42,14 @@ const UserSchema = new Schema<UserData>({
     history: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "histories"
+            ref: "Histories"
         }
     ]
 },
 {
     timestamps: true,
-})
+});
+
+const UserModels = model<MainUserData>("Users", UserSchema);
+
+export default UserModels
