@@ -3,7 +3,7 @@ export interface UserData {
     email: string,
     password: string,
     accountNumber: number,
-    phoneNumber: String,
+    phoneNumber: Number,
     userName: string,
     verified: boolean,
     wallet: {}[],

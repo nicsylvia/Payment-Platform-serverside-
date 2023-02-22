@@ -23,7 +23,7 @@ const UserSchema = new Schema<UserData>({
         type: Number,
     },
     phoneNumber: {
-        type: String,
+        type: Number,
         required: [true, "Please input your phone number"]
     },
     userName: {
