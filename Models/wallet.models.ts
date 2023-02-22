@@ -18,4 +18,5 @@ const WalletSchema = new Schema<WalletData>({
     timestamps: true
 });
 
-const WalletModels = model<MainWalletData>("Users-Wallets", WalletSchema)
+const WalletModels = model<MainWalletData>("Users-Wallets", WalletSchema);
+export default WalletModels
