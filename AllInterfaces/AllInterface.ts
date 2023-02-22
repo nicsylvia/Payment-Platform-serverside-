@@ -15,3 +15,9 @@ export interface WalletData {
     credit: number,
     debit: number
 }
+
+export interface HistoryData {
+    message: string;
+    transactionReference: string;
+    transactionType: string
+}
