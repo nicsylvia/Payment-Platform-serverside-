@@ -1,6 +1,7 @@
 import express, {Application, Request, Response} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import userRoutes from "./Routes/user.routes"
 
 dotenv.config()
 
@@ -20,6 +21,8 @@ app.get("/", (req: Request, res: Response) =>{
         messgae: "API is ready for consumption"
     })
 });
+
+app.use("/api", userRoutes)
 
 app.listen(port, () =>{
     console.log("")
