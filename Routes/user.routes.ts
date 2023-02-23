@@ -1,8 +1,9 @@
 import express from "express";
-import { MakeTransfer, RegisterUsers } from "../Controllers/UsersControllers";
+import { GetAllUsers, MakeTransfer, RegisterUsers } from "../Controllers/UsersControllers";
 
 const Router = express.Router();
 
+Router.route("/all-users").get(GetAllUsers);
 Router.route("/registerusers").post(RegisterUsers);
 Router.route("/sendmoney/:userID/:walletID").post(MakeTransfer)
 

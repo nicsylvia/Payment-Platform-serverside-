@@ -4,6 +4,9 @@ import { WalletData } from "../AllInterfaces/AllInterface";
 interface MainWalletData extends WalletData, Document{};
 
 const WalletSchema = new Schema<WalletData>({
+    Owner: {
+        type: String,
+    },
     Balance: {
         type: Number
     },
