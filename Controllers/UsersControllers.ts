@@ -7,6 +7,23 @@ import WalletModels from "../Models/wallet.models";
 import mongoose from "mongoose";
 import HistoryModels from "../Models/history.models"
 
+
+// Get all users 
+export const GetAllUsers = async(req: Request<{}, {}, UserData>, res: Response): Promise<Response> =>{
+    try {
+        const AllUsers = await UserModels.find().sort({createdAt: -1});
+        return res.status(200).json({
+            message: "Successfully got all users",
+            data: AllUsers
+        })
+    } catch (error) {
+        return res.status(404).json({
+            message: "Couldn't get all users",
+            data: error
+        })
+    }
+}
+
 // RegisterUsers
 export const RegisterUsers = async(req: Request<{}, {}, UserData>, res: Response): Promise<Response> =>{
     try {
