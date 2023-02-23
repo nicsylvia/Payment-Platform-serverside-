@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import WalletModels from "../Models/wallet.models";
 import mongoose from "mongoose";
+import HistoryModels from "../Models/history.models"
 
 // RegisterUsers
 export const RegisterUsers = async(req: Request<{}, {}, UserData>, res: Response): Promise<Response> =>{
@@ -45,6 +46,73 @@ export const RegisterUsers = async(req: Request<{}, {}, UserData>, res: Response
             data: user,
             token: jwt.sign({ _id: user._id }, "dhfufrr-fhfrgshcuiei-vriisiwowuhcb")
         })
+    } catch (error) {
+        return res.status(404).json({
+            message: "An error occured",
+            data: error
+        })
+    }
+};
+
+// TRANSFER TO ANOTHER WALLET AND RECEIVER MONEY:
+export const MakeTransfer = async(req: Request, res: Response): Promise<Response> =>{
+    try {
+        const { accountNumber, amount } = req.body;
+
+        const GenerateTransactionReference = Math.floor(Math.random() * 6745689743) + 243;
+
+        // RECEIVER ACCOUNT:
+        const getReciever = await UserModels.findOne({accountNumber});
+
+        const getRecieverWallet = await WalletModels.findById(getReciever?._id);
+
+        // SENDER ACCOUNT: 
+        const getUser = await UserModels.findById(req.params.userID);
+        const getUserWallet = await WalletModels.findById(req.params.walletID);
+
+        if (getUser && getReciever) {
+            if (amount > getUserWallet?.Balance!) {
+                return res.status(400).json({
+                    message: "Insufficient Funds"
+                })
+            } else {
+                // Updating the sender wallet to receive the debit alert
+                await WalletModels.findByIdAndUpdate(
+                    getUserWallet?._id,
+                    {
+                        Balance: getUserWallet?.Balance! - amount,
+                        credit: 0,
+                        debit: amount,
+                    }
+                );
+
+                // Create the receipt/history of your transaction:
+                const createSenderHistory = await HistoryModels.create({
+                    message: `You have sent ${amount} to ${getReciever.name}`,
+                    transactionReference: GenerateTransactionReference,
+                    transactionType: "Debit"
+                });
+
+                getUser.history.push(
+                    new mongoose.Types.ObjectId(createSenderHistory?._id)
+                );
+                getUser.save();
+
+                // Updating the receiver wallet to receive the credit alert:
+                await WalletModels.findByIdAndUpdate(
+                    getRecieverWallet?._id,
+                    {
+                        Balance: ,
+                        credit: amount,
+                        debit: 0,
+                    }
+                )
+            }
+        } else {
+            return res.status(404).json({
+                message: "Account not found",
+            })
+        }
     } catch (error) {
         return res.status(404).json({
             message: "An error occured",
