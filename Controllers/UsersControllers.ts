@@ -9,12 +9,14 @@ import mongoose from "mongoose";
 // RegisterUsers
 export const RegisterUsers = async(req: Request<{}, {}, UserData>, res: Response): Promise<Response> =>{
     try {
-        const {name, email, password, history, userName} = req.body;
+        const {name, email, password, phoneNumber, userName} = req.body;
 
         const saltedPassword = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, saltedPassword);
 
         const dater = Date.now();
+
+        const num = 234
 
         const GenerateAccountNumber = Math.floor(Math.random() * 78) + dater
 
@@ -22,6 +24,7 @@ export const RegisterUsers = async(req: Request<{}, {}, UserData>, res: Response
             name,
             email,
             userName,
+            phoneNumber: num + phoneNumber,
             password: hashedPassword,
             verified: true,
             accountNumber: GenerateAccountNumber

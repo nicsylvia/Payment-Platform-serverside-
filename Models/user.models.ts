@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { model, Schema, Document } from "mongoose";
 
 import { UserData } from "../AllInterfaces/AllInterface";
 
