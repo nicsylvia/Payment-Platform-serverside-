@@ -50,6 +50,7 @@ export const RegisterUsers = async(req: Request<{}, {}, UserData>, res: Response
 
         const userWallet = await WalletModels.create({
             _id: user?._id,
+            Owner: user?.userName,
             Balance: 1000,
             credit: 0,
             debit: 0
