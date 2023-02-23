@@ -102,12 +102,29 @@ export const MakeTransfer = async(req: Request, res: Response): Promise<Response
                 await WalletModels.findByIdAndUpdate(
                     getRecieverWallet?._id,
                     {
-                        Balance: ,
+                        Balance: getRecieverWallet?.Balance + amount,
                         credit: amount,
                         debit: 0,
                     }
-                )
+                );
+
+                // Create the credit alert message for the receiver:
+                const createReceiverHistory = await HistoryModels.create({
+                    message: `An amount of ${amount} has been sent to you by ${getUser.name}`,
+                    transactionReference: GenerateTransactionReference,
+                    transactionType: "Credit"
+                });
+
+                getReciever.history.push(
+                    new mongoose.Types.ObjectId(
+                        createReceiverHistory?._id
+                    )
+                );
+                getReciever?.save();
             }
+            return res.status(200).json({
+                messgae: "Transaction Successfull"
+            });
         } else {
             return res.status(404).json({
                 message: "Account not found",
