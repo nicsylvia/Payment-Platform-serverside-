@@ -11,7 +11,7 @@ const HistorySchema = new Schema<HistoryData>({
         type: Number
     },
     transactionType: {
-        type: Boolean
+        type: String
     }
 }, 
 {
