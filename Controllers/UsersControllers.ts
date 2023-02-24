@@ -94,7 +94,12 @@ export const MakeTransfer = async(req: Request, res: Response): Promise<Response
                     message: "Insufficient Funds"
                 })
             } else {
-                // Updating the sender wallet to receive the debit alert
+                if (getUser?.accountNumber === accountNumber) {
+                    return res.status(400).json({
+                        message: "This is your account!!!...You can't transfer funds to yourself from this account"
+                    })
+                } else {
+                    // Updating the sender wallet to receive the debit alert
                 await WalletModels.findByIdAndUpdate(
                     getUserWallet?._id,
                     {
@@ -139,6 +144,7 @@ export const MakeTransfer = async(req: Request, res: Response): Promise<Response
                     )
                 );
                 getReciever?.save();
+                }
             }
             return res.status(200).json({
                 messgae: "Transaction Successfull"
