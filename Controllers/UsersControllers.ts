@@ -161,3 +161,16 @@ export const MakeTransfer = async(req: Request, res: Response): Promise<Response
         })
     }
 }
+
+// Fund your wallet from your bank
+
+export const FundWalletFromBank = async() =>{
+    try {
+        
+    } catch (error) {
+        return res.status(404).json({
+            message: "An error occured",
+            data: error
+        })
+    }
+}
