@@ -9,7 +9,7 @@ import HistoryModels from "../Models/history.models"
 
 
 // Get all users 
-export const GetAllUsers = async(req: Request<{}, {}, UserData>, res: Response): Promise<Response> =>{
+export const GetAllUsers = async(req: Request<{}, {}, UserData>, res: Response): Promise<Response> =>{ 
     try {
         const AllUsers = await UserModels.find().sort({createdAt: -1});
         return res.status(200).json({
@@ -50,7 +50,7 @@ export const RegisterUsers = async(req: Request<{}, {}, UserData>, res: Response
 
         const userWallet = await WalletModels.create({
             _id: user?._id,
-            Owner: user?.userName,
+            Owner: user?.name,
             Balance: 1000,
             credit: 0,
             debit: 0

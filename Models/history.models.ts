@@ -1,5 +1,5 @@
 import mongoose, { model, Schema, Document } from "mongoose";
-import { HistoryData, WalletData } from "../AllInterfaces/AllInterface";
+import { HistoryData } from "../AllInterfaces/AllInterface";
 
 interface MainHistoryData extends HistoryData, Document{};
 
