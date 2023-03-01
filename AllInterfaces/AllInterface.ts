@@ -22,3 +22,10 @@ export interface HistoryData {
     transactionReference: number;
     transactionType: string
 }
+
+export interface QuickSaveData {
+    amount: number;
+    autosave: boolean;
+    dateTime: number | string;
+    interest: number
+}
