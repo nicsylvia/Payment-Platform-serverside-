@@ -1,4 +1,4 @@
-import { model, Schema, Document } from "mongoose";
+import mongoose, { model, Schema, Document } from "mongoose";
 import { WalletData } from "../AllInterfaces/AllInterface";
 
 interface MainWalletData extends WalletData, Document{};
@@ -15,7 +15,25 @@ const WalletSchema = new Schema<WalletData>({
     },
     credit: {
         type: Number
-    }
+    },
+    quicksave: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "QuickSaves"
+        }
+    ],
+    saveLock: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "SafeLocks"
+        }
+    ],
+    Target: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Targets"
+        }
+    ],
 }, 
 {
     timestamps: true

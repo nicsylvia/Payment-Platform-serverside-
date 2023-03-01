@@ -14,7 +14,10 @@ export interface WalletData {
     Owner: string,
     Balance: number;
     credit: number,
-    debit: number
+    debit: number;
+    quickSave: {}[];
+	saveLock: {}[];
+	Target: {}[];
 }
 
 export interface HistoryData {
