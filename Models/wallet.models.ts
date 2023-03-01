@@ -16,7 +16,7 @@ const WalletSchema = new Schema<WalletData>({
     credit: {
         type: Number
     },
-    quicksave: [
+    quickSave: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "QuickSaves"
