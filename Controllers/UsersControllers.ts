@@ -168,22 +168,21 @@ export const FundWalletFromBank = async(req: Request, res: Response) =>{
     try {
         const getUserBank = await UserModels.findById(req.params.userID);
 
-        const getUserWallet = await UserModels.findById(req.params.walletID);
+        const getUserWallet = await WalletModels.findById(req.params.walletID);
 
         const { amount, transactionRef } = req.body;
 
-        if (getUserBank && getUserWallet) {
-            const creditedWallet = await WalletModels.findByIdAndUpdate(
-                req.params.walletID,
-                {
-                    Balance: getUserWallet?.Balance + amount
-                }
-            );
+        await WalletModels.findByIdAndUpdate(
+            getUserWallet?._id,
+            {
+                Balance: getUserWallet?.Balance + amount
+            }
+        );
 
-            getUserWalletCreditReceipt = await HistoryModels.
-        } else {
-            
-        }
+        // Get receipt for my transfer from bank to wallet
+        const WalletCreditReceipt = await HistoryModels.create({
+            message: `An amount of ${amount} has been credited to your wallet from your bank`
+        })
     } catch (error) {
         return res.status(404).json({
             message: "An error occured",
