@@ -29,3 +29,11 @@ export interface QuickSaveData {
     dateTime: number | string;
     interest: number
 }
+
+export interface LocksData {
+    amount: number;
+    PayBackTime: string;
+    interest: number;
+    lock: boolean;
+    title: string;
+}
