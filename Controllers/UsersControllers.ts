@@ -181,7 +181,19 @@ export const FundWalletFromBank = async(req: Request, res: Response) =>{
 
         // Get receipt for my transfer from bank to wallet
         const WalletCreditReceipt = await HistoryModels.create({
-            message: `An amount of ${amount} has been credited to your wallet from your bank`
+            message: `An amount of ${amount} has been credited to your wallet from your bank`,
+            transactionType: "Credit",
+            transactionReference: transactionRef
+        });
+
+        // Pushing in the receipt to the user
+        getUserBank?.history?.push(
+            new mongoose.Types.ObjectId(WalletCreditReceipt?._id)
+        )
+
+        return res.status(200).json({
+            message: "Wallet credit successfuully",
+            data: WalletCreditReceipt
         })
     } catch (error) {
         return res.status(404).json({
