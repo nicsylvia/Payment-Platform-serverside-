@@ -37,3 +37,12 @@ export interface LocksData {
     lock: boolean;
     title: string;
 }
+
+export interface TargetData {
+    amount: number;
+    fixedAmount: number;
+    interest: number;
+    dateTime: string;
+    title: string;
+    targetValue: boolean;
+}
